@@ -11,8 +11,8 @@
 基于已有原生第三方框架封装的多图片选择组件，适用于 React Native App。
 
 ### 原生框架依赖
-* Android： [PictureSelector 2.3.8](https://github.com/LuckSiege/PictureSelector) - by [LuckSiege](https://github.com/LuckSiege)
-* iOS：[TZImagePickerController 3.0.9](https://github.com/banchichen/TZImagePickerController) - by [banchichen](https://github.com/banchichen)
+* Android： [PictureSelector 2.5.2](https://github.com/LuckSiege/PictureSelector) - by [LuckSiege](https://github.com/LuckSiege)
+* iOS：[TZImagePickerController 3.3.1](https://github.com/banchichen/TZImagePickerController) - by [banchichen](https://github.com/banchichen)
 
 ### 功能特点
 * 支持 iOS、Android 两端
@@ -313,6 +313,64 @@ SyanImagePicker.openCamera(options, (err, photos) => {
    ...
  })
 ```
+
+### 选择视频
+
+```javascript
+SyanImagePicker.openVideoPicker(options, (err, videos) => {
+  if (err) {
+    // 取消选择
+    return;
+  }
+  // 选择成功，处理视频
+  // ...
+})
+```
+
+options 可选配置：
+
+```
+{
+  MaxSecond: 60,
+  MinSecond: 0,
+  recordVideoSecond: 60,
+  videoCount: 1
+}
+```
+
+返回结果：
+
+| type | value | iOS | Android |
+|---|---|---|---|
+| uri | string | ✅ | ✅|
+| fileName | string | ✅ | ✅|
+| size | string | ✅ | ✅|
+| duration | number | ✅ | ✅|
+| width | number | ✅ | ✅|
+| height | number | ✅ | ✅|
+| type | string | ✅ | ✅|
+| mime | string | ✅ | ✅|
+| coverUri | string | ✅ | ✅|
+| favorite | string | ✅ | ❌|
+| mediaType | string | ✅ | ❌|
+
+Android 返回结果：
+
+```javascript
+{
+  mime: "video/mp4",
+  type: "video",
+  height: 1080,
+  width: 1920,
+  duration: 30.22,
+  size: 63876724,
+  fileName: "VID_20200409_11492864.mp4",
+  uri: "file:///storage/emulated/0/DCIM/Camera/VID_20200409_11492864.mp4",
+  coverUri: "file:///storage/emulated/0/Android/data/package_id/cache/thumb-c3c99b6a.jpg"
+}
+```
+
+注：uri 包含协议 "file://"
 
 ### 删除缓存
 ```javascript
