@@ -320,6 +320,10 @@ RCT_EXPORT_METHOD(openVideoPicker:(NSDictionary *)options callback:(RCTResponseS
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
         self.imagePickerVc.sourceType = sourceType;
+        BOOL useFrontCamera = [self.cameraOptions sy_boolForKey:@"useFrontCamera"];
+        if (useFrontCamera) {
+            self.imagePickerVc.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        }
         [[self topViewController] presentViewController:self.imagePickerVc animated:YES completion:nil];
     } else {
         NSLog(@"模拟器中无法打开照相机,请在真机中使用");
